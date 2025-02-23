@@ -5,34 +5,33 @@ public class testcaseAP1 {
     }
 
     public static int testKnightandWarror() {
-        int [] baseHP = {100, 999, 500, 501, 9};
+        int [] baseHP = {100, 999, 500, 501, 9, 1000, 1999, 2000, 9991, 10000};
         int [] baseWP = {1, 2};
         int [] baseGround = {1, 2, 6};
-        int numberoftest = 2 * 3 * 5;
+        int numberoftest = baseGround.length * baseHP.length * baseWP.length;
         for(int i = 0; i < numberoftest; ++i){
-            int hp = baseHP[i % 5];
-            int wp = baseWP[(i / 5) % 2];
-            Battle.GROUND = baseGround[(i / 10) % 3];
+            int hp = baseHP[i % baseHP.length];
+            int wp = baseWP[(i / baseHP.length) % 2];
+            Battle.GROUND = baseGround[(i / baseHP.length / baseWP.length) % 3];
             Combatable knight = new Knight(hp, wp);
             Combatable warrior = new Warrior(hp, wp);
-            // System.err.println("hp: " + hp + " wp: " + wp + " ground: " + Battle.GROUND);
             if(Battle.GROUND == 1){
                 if(knight.getCombatScore() != min(hp * 2.0d, 999.0d) 
-                    || (wp == 1 && warrior.getCombatScore() != hp)
-                    || (wp != 1 && warrior.getCombatScore() != hp / 10.0d))
+                    || (wp == 1 && warrior.getCombatScore() != min(hp, 999.0))
+                    || (wp != 1 && warrior.getCombatScore() != min(hp / 10.0d, 999.0)))
                     return i;
             } else if(Battle.GROUND == 2) {
                 if(warrior.getCombatScore() != min(hp * 2.0d, 999.0d)
-                    || wp == 1 && knight.getCombatScore() != hp
-                    || (wp != 1 && knight.getCombatScore() != hp / 10.0d))
+                    || wp == 1 && knight.getCombatScore() != min(hp, 999)
+                    || (wp != 1 && knight.getCombatScore() != min(hp / 10.0d, 999)))
                     return i;
             }
             else {
-                if(wp == 1 && (knight.getCombatScore() != hp 
-                    || warrior.getCombatScore() != hp))
+                if(wp == 1 && (knight.getCombatScore() != min(hp, 999) 
+                    || warrior.getCombatScore() != min(hp, 999)))
                     return i;
-                if (wp != 1 && (warrior.getCombatScore() != hp / 10.0 
-                    || knight.getCombatScore() != hp / 10.0))
+                if (wp != 1 && (warrior.getCombatScore() != min(hp / 10.0d, 999)
+                    || knight.getCombatScore() != min(hp / 10.0d, 999)))
                     return i;
             }
         }
