@@ -6,7 +6,7 @@ public class testcaseAP1 {
 
     public static int testKnightandWarror() {
         int [] baseHP = {100, 999, 500, 501, 9, 1000, 1999, 2000, 9991, 10000};
-        int [] baseWP = {1, 2};
+        int [] baseWP = {1, 2}; 
         int [] baseGround = {1, 2, 6};
         int numberoftest = baseGround.length * baseHP.length * baseWP.length;
         for(int i = 0; i < numberoftest; ++i){
@@ -18,21 +18,37 @@ public class testcaseAP1 {
             if(Battle.GROUND == 1){
                 if(knight.getCombatScore() != min(hp * 2.0d, 999.0d) 
                     || (wp == 1 && warrior.getCombatScore() != min(hp, 999.0))
-                    || (wp != 1 && warrior.getCombatScore() != min(hp / 10.0d, 999.0)))
+                    || (wp != 1 && warrior.getCombatScore() != min(hp / 10.0d, 999.0))){
+                    System.err.println("hp " + hp + " wp " + wp + " ground " + Battle.GROUND);
+                    System.err.println("output knight " + knight.getCombatScore() + " warrior " + warrior.getCombatScore());
+                    System.err.println("expect knight " + min(hp * 2.0d, 999.0d) + " warrior " + min(hp, 999.0));
                     return i;
+                }
             } else if(Battle.GROUND == 2) {
                 if(warrior.getCombatScore() != min(hp * 2.0d, 999.0d)
                     || wp == 1 && knight.getCombatScore() != min(hp, 999)
-                    || (wp != 1 && knight.getCombatScore() != min(hp / 10.0d, 999)))
-                    return i;
+                    || (wp != 1 && knight.getCombatScore() != min(hp / 10.0d, 999))){
+                        System.err.println("hp " + hp + " wp " + wp + " ground " + Battle.GROUND);
+                        System.err.println("output knight " + knight.getCombatScore() + " warrior " + warrior.getCombatScore());
+                        System.err.println("expect knight " + min(hp / 10.0d, 999.0) + " warrior " + min(hp * 2.0d, 999.0));
+                        return i;
+                    }
             }
             else {
                 if(wp == 1 && (knight.getCombatScore() != min(hp, 999) 
-                    || warrior.getCombatScore() != min(hp, 999)))
-                    return i;
-                if (wp != 1 && (warrior.getCombatScore() != min(hp / 10.0d, 999)
-                    || knight.getCombatScore() != min(hp / 10.0d, 999)))
-                    return i;
+                    || warrior.getCombatScore() != min(hp, 999))){
+                        System.err.println("hp " + hp + " wp " + wp + " ground " + Battle.GROUND);
+                        System.err.println("output knight " + knight.getCombatScore() + " warrior " + warrior.getCombatScore());
+                        System.err.println("expect knight " + min(hp, 999.0) + " warrior " + min(hp, 999.0));
+                        return i;
+                    }
+                else if (wp != 1 && (warrior.getCombatScore() != min(hp / 10.0d, 999)
+                    || knight.getCombatScore() != min(hp / 10.0d, 999))){
+                        System.err.println("hp " + hp + " wp " + wp + " ground " + Battle.GROUND);
+                        System.err.println("output knight " + knight.getCombatScore() + " warrior " + warrior.getCombatScore());
+                        System.err.println("expect knight " + min(hp / 10.0d, 999.0) + " warrior " + min(hp / 10.0d, 999.0));
+                        return i;
+                    }
             }
         }
         return -1;
@@ -51,12 +67,18 @@ public class testcaseAP1 {
             if(i < fibo.length && i > 2){
                 Combatable paladin = new Paladin(hp, wp);
                 if(paladin.getCombatScore() != 1000.0d + (double) i){
+                    System.err.println("hp " + hp + " wp " + wp);
+                    System.err.println("output " + paladin.getCombatScore());
+                    System.err.println("expect " + 1000.0d + (double) i);
                     return i;
                 }
             }
             else {
                 Combatable paladin = new Paladin(hp, wp);
                 if(paladin.getCombatScore() != hp * 3.0d){
+                    System.err.println("hp " + hp + " wp " + wp);
+                    System.err.println("output " + paladin.getCombatScore());
+                    System.err.println("expect " + hp * 3.0d);
                     return i;
                 }
             }
@@ -69,6 +91,9 @@ public class testcaseAP1 {
         for(int i = 0; i < Mana.length; ++i){
             DeathEater deathEater = new DeathEater(Mana[i]);
             if(deathEater.getCombatScore() != Mana[i].getMagnitude()){
+                System.err.println("Mana " + Mana[i].toString());
+                System.err.println("output " + deathEater.getCombatScore());
+                System.err.println("expect " + Mana[i].getMagnitude());
                 return i;
             }
         }
@@ -76,18 +101,21 @@ public class testcaseAP1 {
     }
 
     public static void run() {
-        if(testKnightandWarror() == -1)
+        int test1 = testKnightandWarror(), test2, test3;
+        if(test1 == -1)
             System.err.println("testKnightandWarror passed.");
         else
-            System.err.println("fail testKnightandWarror: " + testKnightandWarror());
-        if(testPaladin() == -1)
+            System.err.println("fail testKnightandWarror: " + test1);
+        test2 = testPaladin();
+        if(test2 == -1)
             System.err.println("testPaladin passed.");
         else
-            System.err.println("fail testPaladin: " + testPaladin());
-        if(testDeathEater() == -1)
+            System.err.println("fail testPaladin: " + test2);
+        test3 = testDeathEater();
+        if(test3 == -1)
             System.err.println("testDeathEater passed.");
         else
-            System.err.println("fail testDeathEater: " + testDeathEater());
+            System.err.println("fail testDeathEater: " + test3);
     }
 
     public static void main(String[] args) {
