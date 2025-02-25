@@ -21,7 +21,7 @@ public class testcaseAP1 {
                     || (wp != 1 && warrior.getCombatScore() != min(hp / 10.0d, 999.0))){
                     System.err.println("hp " + hp + " wp " + wp + " ground " + Battle.GROUND);
                     System.err.println("output knight " + knight.getCombatScore() + " warrior " + warrior.getCombatScore());
-                    System.err.println("expect knight " + min(hp * 2.0d, 999.0d) + " warrior " + min(hp, 999.0));
+                    System.err.println("expect knight " + min(hp * 2.0d, 999.0d) + " warrior " + min((wp == 1) ? hp : hp / 10.0, 999.0));
                     return i;
                 }
             } else if(Battle.GROUND == 2) {
@@ -30,7 +30,7 @@ public class testcaseAP1 {
                     || (wp != 1 && knight.getCombatScore() != min(hp / 10.0d, 999))){
                         System.err.println("hp " + hp + " wp " + wp + " ground " + Battle.GROUND);
                         System.err.println("output knight " + knight.getCombatScore() + " warrior " + warrior.getCombatScore());
-                        System.err.println("expect knight " + min(hp / 10.0d, 999.0) + " warrior " + min(hp * 2.0d, 999.0));
+                        System.err.println("expect knight " + min((wp == 1) ? hp : hp / 10.0, 999.0) + " warrior " + min(hp * 2.0d, 999.0));
                         return i;
                     }
             }
