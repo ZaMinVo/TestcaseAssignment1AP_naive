@@ -7,7 +7,7 @@ public class testcaseAP1 {
     public static int testKnightandWarror() {
         int [] baseHP = {100, 999, 500, 501, 9, 1000, 1999, 2000, 9991, 10000};
         int [] baseWP = {1, 2}; 
-        int [] baseGround = {1, 2, 6};
+        int [] baseGround = {1, 2, 4, 6};
         int numberoftest = baseGround.length * baseHP.length * baseWP.length;
         for(int i = 0; i < numberoftest; ++i){
             int hp = baseHP[i % baseHP.length];
@@ -15,7 +15,7 @@ public class testcaseAP1 {
             Battle.GROUND = baseGround[(i / baseHP.length / baseWP.length) % 3];
             Combatable knight = new Knight(hp, wp);
             Combatable warrior = new Warrior(hp, wp);
-            if(Battle.GROUND == 1){
+            if(Battle.GROUND == 1 || Battle.GROUND == 4){
                 if(knight.getCombatScore() != min(hp * 2.0d, 999.0d) 
                     || (wp == 1 && warrior.getCombatScore() != min(hp, 999.0))
                     || (wp != 1 && warrior.getCombatScore() != min(hp / 10.0d, 999.0))){
