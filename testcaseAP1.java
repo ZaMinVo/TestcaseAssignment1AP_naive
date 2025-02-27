@@ -69,7 +69,7 @@ public class testcaseAP1 {
                 if(paladin.getCombatScore() != 1000.0d + (double) i){
                     System.err.println("hp " + hp + " wp " + wp);
                     System.err.println("output " + paladin.getCombatScore());
-                    System.err.println("expect " + 1000.0d + (double) i);
+                    System.err.println("expect " + (1000.0d + (double) i));
                     return i;
                 }
             }
@@ -78,7 +78,7 @@ public class testcaseAP1 {
                 if(paladin.getCombatScore() != hp * 3.0d){
                     System.err.println("hp " + hp + " wp " + wp);
                     System.err.println("output " + paladin.getCombatScore());
-                    System.err.println("expect " + hp * 3.0d);
+                    System.err.println("expect " + (hp * 3.0d));
                     return i;
                 }
             }
